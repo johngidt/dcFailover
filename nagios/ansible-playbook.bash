@@ -18,11 +18,11 @@ echo "        \"host_or_group\": \"${4}\"" >> ${AUXFILE}
 echo "      }"                             >> ${AUXFILE}
 echo "}"                                   >> ${AUXFILE}
 
-> ${DEBUGFILE}
-echo "PARAM 1 = ${1}" >> ${DEBUGFILE}
-echo "PARAM 2 = ${2}" >> ${DEBUGFILE}
-echo "PARAM 3 = ${3}" >> ${DEBUGFILE}
-echo "PARAM 4 = ${4}" >> ${DEBUGFILE}
+#> ${DEBUGFILE}
+#echo "PARAM 1 = ${1}" >> ${DEBUGFILE}
+#echo "PARAM 2 = ${2}" >> ${DEBUGFILE}
+#echo "PARAM 3 = ${3}" >> ${DEBUGFILE}
+#echo "PARAM 4 = ${4}" >> ${DEBUGFILE}
 
 #rm ${DEBUGFILE}
 
@@ -39,8 +39,7 @@ CRITICAL)
 		case "$3" in
 		2)
 		logger "ooOoo--- RUNNING ANSIBLE PLAYBOOK ---ooOoo"
-		/usr/bin/curl -X POST --user itoperator:Redhat1! --data @${AUXFILE} https://tower/api/v1/job_templates/24/launch/ -k -H "Content-Type: application/json"
-#			rm ${AUXFILE}
+		/usr/bin/curl -X POST --user itoperator:redhat123. --data @${AUXFILE} https://tower/api/v1/job_templates/24/launch/ -k -H "Content-Type: application/json"
 			;;
 		esac
 
