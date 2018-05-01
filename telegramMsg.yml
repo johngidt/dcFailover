@@ -9,4 +9,5 @@
       telegram: 
          token: "{{ tokenBot }}"
          chat_id: "{{ chatID }}"
-         msg: SSH terminal interactive for "{{ host_or_group }}" : "{{ tty_on_off }}"
+         msg: "SSH terminal interactive for {{ host_or_group }} : {{ tty_on_off }}"
+#         msg: SSH terminal interactive for "{{ host_or_group }}" "{{ tty_on_off }}"
