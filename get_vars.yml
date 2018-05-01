@@ -1,0 +1,12 @@
+---
+- hosts: AdminServers
+  remote_user: root
+
+  tasks:
+  - name: Write the parameter:value
+    template: src=templates/key_value.j2 dest={{ dir_base }}/tmp/key_value
+
+  - name: Merging parameters
+    shell: ./tools/merge.bash {{ dir_base }}
+    args:
+      chdir: "{{ dir_base }}"

@@ -1,0 +1,20 @@
+---
+- hosts: "{{ host_or_group }}"
+  remote_user: root
+
+  tasks:
+  - name: Running action START
+    service: name=httpd state=started
+    when: http_action == "start"
+
+  - name: Running action STOP
+    service: name=httpd state=stopped
+    when: http_action == "stop"
+
+  - name: Running action RESTART
+    service: name=httpd state=restarted
+    when: http_action == "restart"
+
+  - name: Running action RELOAD
+    service: name=httpd state=reloaded
+    when: http_action == "reload"

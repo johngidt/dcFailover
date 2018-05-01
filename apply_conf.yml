@@ -1,0 +1,9 @@
+---
+- hosts: "{{ host_or_group }}"
+  remote_user: root
+  vars_files:
+    - vars/httpd_vars.yml
+
+  tasks:
+  - name: Applying configuration
+    template: src=templates/{{ template_file }} dest={{ http_config_file_path }}

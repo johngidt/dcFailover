@@ -1,0 +1,18 @@
+---
+- hosts: "{{ host_or_group }}"
+  remote_user: root
+
+  tasks:
+  - name: Enabling NAGIOS Service HTTP_Ansible_Demo
+    nagios:
+       action: command
+       command: "ENABLE_SVC_CHECK;{{ inventory_hostname }};HTTP_Ansible_Demo"
+    delegate_to: nagios
+    when: nagios_action == "enable"
+
+  - name: Disabling NAGIOS Service HTTP_Ansible_Demo
+    nagios:
+       action: command
+       command: "DISABLE_SVC_CHECK;{{ inventory_hostname }};HTTP_Ansible_Demo"
+    delegate_to: nagios
+    when: nagios_action == "disable"

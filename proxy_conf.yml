@@ -1,0 +1,17 @@
+---
+- hosts: LoadBalancers
+  remote_user: root
+  vars_files:
+    - vars/httpd_vars.yml
+
+  tasks:
+  - name: Applying configuration Full
+    template: src=templates/{{ template_file_proxy }}_{{ host_or_group }} dest={{ proxy_config_file_path }}
+    when: proxy_config == "full"
+
+  - name: Applying configuration Baseline
+    template: src=templates/{{ template_file_proxy }} dest={{ proxy_config_file_path }}
+    when: proxy_config == "baseline"
+
+  - name: Reloading config
+    service: name=haproxy state=reloaded

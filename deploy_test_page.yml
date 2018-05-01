@@ -1,0 +1,15 @@
+---
+- hosts: "{{ host_or_group }}"
+  remote_user: root
+  vars_files:
+    - vars/httpd_vars.yml
+
+  tasks:
+  - name: Coping content
+    copy: src=templates/{{ item }} dest={{ http_documentroot }}/{{ item }}
+    with_items:
+    - test.html
+    - index.html
+    - qrvictor.png
+    - qrmoy.png
+    - summit-logo.png

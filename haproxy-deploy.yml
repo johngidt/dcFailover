@@ -1,0 +1,10 @@
+---
+- hosts: LoadBalancers
+  remote_user: root
+
+  tasks:
+  - name: Download and install HAproxy pkgs
+    yum: name=haproxy state=present
+
+  - name: Active service HAproxy
+    service: name=haproxy state=started enabled=yes

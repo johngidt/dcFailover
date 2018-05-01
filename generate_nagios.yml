@@ -1,0 +1,26 @@
+---
+- hosts: "{{ host_or_group }}"
+  remote_user: root
+  vars_files:
+    - vars/httpd_vars.yml
+
+  tasks:
+  - name: Generating Nagios template.
+    template: src=templates/nagios.j2 dest=/tmp/nagios_host.cfg
+
+  - name: Coping template from WebServer to Ansible Tower
+    fetch: src=/tmp/nagios_host.cfg dest=nagios/{{ inventory_hostname }}.cfg flat=yes
+
+- name: Coping templates from Tower to Nagios
+  hosts: Monitoring
+  remote_user: root
+
+  tasks:
+  - name: Coping...
+    copy: src=nagios/ dest=/usr/local/nagios/etc/servers/
+
+  - name: Setting permissions
+    file: path=/usr/local/nagios/etc/servers/ansible-playbook.bash mode=0755
+
+  - name: Starting service nagios
+    service: name=nagios state=restarted

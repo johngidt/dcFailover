@@ -1,0 +1,30 @@
+---
+- hosts: "{{ host_or_group }}"
+  remote_user: root
+  gather_facts: no
+
+  handlers: 
+  - name: restart ssh
+    service: name=sshd state=restarted
+    listen: "restart ssh"
+
+  tasks:
+  - name: Activate SSH using TTY. Step 1
+    lineinfile: dest=/etc/ssh/sshd_config regexp='^PermitTTY no' state=absent
+    when: tty_on_off == "ON"
+  - name:  Activate SSH using TTY. Step 2
+    lineinfile: dest=/etc/ssh/sshd_config line='PermitTTY yes' state=present
+    notify: "restart ssh"
+    when: tty_on_off == "ON"
+
+  - name: Deactivate SSH using TTY. Step 1
+    lineinfile: dest=/etc/ssh/sshd_config regexp='^PermitTTY yes' state=absent
+    when: tty_on_off == "OFF"
+  - name: Deactivate SSH using TTY. Step 2
+    lineinfile: dest=/etc/ssh/sshd_config line='PermitTTY no' state=present
+    notify: "restart ssh"
+    when: tty_on_off == "OFF"
+  - name: Delete all the connections via SSH
+    shell: ps -ef | grep sshd | grep \@ | grep -v grep | grep -v pts/`basename $SSH_TTY` > /dev/null ; if [ $? -eq 0 ]; then ps -ef | grep sshd | grep \@ | grep -v grep | grep -v pts/`basename $SSH_TTY` | awk '{print $2}' | xargs kill -9 ; fi
+    ignore_errors: true
+    when: tty_on_off == "OFF"

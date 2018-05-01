@@ -1,0 +1,16 @@
+---
+- hosts: "{{ host_or_group }}"
+  remote_user: root
+
+  tasks:
+  - name: Download and install httpd pkgs
+    yum: name={{ item }} state=present
+    with_items:
+    - apr
+    - apr-util
+    - httpd-tools
+    - mailcap
+    - httpd
+
+  - name: Active service httpd
+    service: name=httpd state=started enabled=yes

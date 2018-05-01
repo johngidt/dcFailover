@@ -1,0 +1,9 @@
+---
+- hosts: AdminServers
+  remote_user: root
+
+  tasks:
+  - name: Running the git commit
+    shell: ./publica.bash
+    args:
+      chdir: "{{ dir_base }}"

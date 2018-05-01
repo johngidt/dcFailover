@@ -1,0 +1,20 @@
+---
+- hosts: LoadBalancers
+  remote_user: root
+
+  tasks:
+  - name: Running action START
+    service: name=haproxy state=started
+    when: action == "start"
+
+  - name: Running action STOP
+    service: name=haproxy state=stopped
+    when: action == "stop"
+
+  - name: Running action RESTART
+    service: name=haproxy state=restarted
+    when: action == "restart"
+
+  - name: Running action RELOAD
+    service: name=haproxy state=reloaded
+    when: action == "reload"

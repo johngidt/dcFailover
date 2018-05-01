@@ -1,0 +1,12 @@
+---
+- hosts: AdminServers
+  remote_user: root
+
+  tasks:
+  - name: Getting vars value
+    shell: cat vars/{{ file_var }}
+    register: output
+    args: 
+      chdir: "{{ dir_base }}"
+
+  - debug: msg="{{ output.stdout_lines }}"
