@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  connection: local
+  vars_files:
+    - vars/telegram_vars.yml
+
+  tasks:
+    - name: Sending message to Telegram
+      telegram: 
+         token: "{{ tokenBot }}"
+         chat_id: "{{ chatID }}"
+         msg: SSH terminal interactive for "{{ host_or_group }}" : "{{ tty_on_off }}"
