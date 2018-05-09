@@ -3,6 +3,7 @@
   connection: local
   vars_files:
     - vars/telegram_vars.yml
+    - vars/slack.yml
 
   tasks:
     - name: Sending message to Telegram
@@ -10,4 +11,13 @@
          token: "{{ tokenBot }}"
          chat_id: "{{ chatID }}"
          msg: "SSH terminal interactive for {{ host_or_group }} : {{ tty_on_off }}"
-#         msg: SSH terminal interactive for "{{ host_or_group }}" "{{ tty_on_off }}"
+      when: telegram_notify == "ON"
+
+    - name: Sending message to Slack
+      slack:
+         token: "{{ slack_token }}" 
+         channel: "{{ slack_channel }}"
+         domain: "{{ slack_domain }}"
+         msg: "SSH terminal interactive for {{ host_or_group }} : {{ tty_on_off }}"
+      when: slack_notify == "ON"
+
