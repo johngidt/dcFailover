@@ -6,4 +6,4 @@ slack_token: 'xoxp-361633052935-360039545633-359906515984-203813d2f794c1b15f4d34
 slack_channel: '#general'
 
 # Domain
-slack_domain: 'Summit18AnsibleDemo'
+slack_domain: 'summit18ansibledemo.slack.com'
