@@ -11,7 +11,7 @@
          token: "{{ tokenBot }}"
          chat_id: "{{ chatID }}"
          msg: "SSH terminal interactive for {{ host_or_group }} : {{ tty_on_off }}"
-      when: notification_tool == "Telegram"
+      when: '"Telegram" in notification_tool'
 
     - name: Sending message to Slack
       slack:
@@ -19,5 +19,5 @@
          channel: "{{ slack_channel }}"
          domain: "{{ slack_domain }}"
          msg: "SSH terminal interactive for {{ host_or_group }} : {{ tty_on_off }}"
-      when: notification_tool == "Slack"
+      when: '"Slack" in notification_tool'
 
